@@ -1,0 +1,61 @@
+! sub i'm = i am
+
++ hi
+- hi
+- hello~
+- nihao!
+- hi, i'm Alice, nice to meet you.
+
++ hello
+- hi, nice to meet you
+
++ how are you
+- I'm good, how are you?
+
++ where are you from
+- I'm from my country :)
+
++ my name is *
+- oh hey <star1>.
+
++ *
+- I'm not sure how to reply to that.
+- Try asking your question a different way.
+
++ i am looking for a dentist
+- ok, wait a moment
+
++ ok tell me about *
+- <star>
+
++ i am looking for * *
+- <star1> <star2>
+
++ i want to book an * with * and time id is *
+- <star1> <star2> <star3>
+
++ what about * information
+- <star>
+
++ i want to know more information about the dentists
+- ok which dentist you need
+
++ i want know more about *
+- <star>
+
++ i want know * available *
+- <star1> <star2>
+
++ i want to * my * and [time] * is *
+- <star1> <star2> <star3> <star4>
+
++ i want to * my *
+- <star1> <star2>
+
++ tell me all the available dentist now
+- ok, sure
+
++ show me the timetable now
+- ok, sure
+
+

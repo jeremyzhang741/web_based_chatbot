@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bot Alice</title>
+</head>
+<style type="text/css">
+        .talk_con{
+            width:600px;
+            height:500px;
+            border:1px solid #666;
+            margin:50px auto 0;
+            background:#f9f9f9;
+        }
+        .talk_show{
+            width:580px;
+            height:420px;
+            border:1px solid #666;
+            background:#fff;
+            margin:10px auto 0;
+            overflow:auto;
+        }
+        .talk_input{
+            width:580px;
+            margin:10px auto 0;
+        }
+        .whotalk{
+            width:80px;
+            height:30px;
+            float:left;
+            outline:none;
+        }
+        .talk_word{
+            width:420px;
+            height:26px;
+            padding:0px;
+            float:left;
+            margin-left:10px;
+            outline:none;
+            text-indent:10px;
+        }
+        .talk_sub{
+            width:80px;
+            height:40px;
+            float:left;
+            margin-left:10px;
+        }
+        .atalk{
+           margin:10px;
+        }
+        .atalk span{
+            display:inline-block;
+            background:#0181cc;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
+        .btalk{
+            margin:10px;
+            text-align:right;
+        }
+        .btalk span{
+            display:inline-block;
+            background:#ef8201;
+            border-radius:10px;
+            color:#fff;
+            padding:5px 10px;
+        }
+    </style>
+
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+<body>
+    <div class="talk_con">
+        <div class="talk_show" id="words">
+            <div class="atalk"><span id="asay">Alice : Hi! How are you today? I am your private
+secretary. You can book an appointment or get more information from me.</span></div>
+
+        </div>
+        <div class="talk_input">
+            <input type="text" class="talk_word" id="talkwords">
+            <input type="button" value="Send" class="talk_sub" id="talksub">
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    
+        window.onload = function(){
+            console.log("init");
+            var Words = document.getElementById("words");
+            var TalkWords = document.getElementById("talkwords");
+            var TalkSub = document.getElementById("talksub");
+            TalkSub = $('#talksub');
+            console.log(TalkSub);
+
+            TalkSub.click(() => {
+                //console.log("click")
+                var str = "";
+                var str_1 = "";
+                console.log("test")
+                if(TalkWords.value == ""){
+                    alert("not none input");
+                    return;
+                }
+                str = '<div class="btalk"><span>User :' + TalkWords.value +'</span></div>';
+                Words.innerHTML = Words.innerHTML + str;
+                $.ajax({
+                url:"http://0.0.0.0:5004/send_message",
+                type:"post",
+                data:JSON.stringify({query: TalkWords.value}),
+                dataType: 'json',
+                contentType:'application/json;charset=UTF-8',
+                success: function(result) {
+                    var item = result['reply']
+
+                    if (Array.isArray(item)){
+                        var tableData="<table border='1'><tr>"
+                        tableData += "<th>"+"Name"+"</th>"
+                        tableData += "<th>"+"Time ID"+"</th>"
+                        tableData += "<th>"+"Time"+"</th>"
+                        tableData += "<th>"+"date"+"</th></tr>"
+                        for(var i=0;i<item.length;i++){
+                            var tableData_1="<tr>"
+                            tableData_1+="<td>"+item[i][0]+"</td>"
+                            tableData_1+="<td>"+item[i][1]+"</td>"
+                            tableData_1+="<td>"+item[i][2]+"</td>"
+                            tableData_1+="<td>"+item[i][3]+"</td>"
+                            tableData_1+="</tr>"
+                            tableData += tableData_1
+                            }
+                        tableData += "</table>"
+                        var dee = typeof(item)
+                        str_1 = '<div class="atalk"><span>Alice :' + tableData +'</span></div>';
+                        Words.innerHTML = Words.innerHTML + str_1;
+                            }
+                    else{
+                        str_1 = '<div class="atalk"><span>Alice :' + item +'</span></div>';
+                        Words.innerHTML = Words.innerHTML + str_1;
+                        }
+                    }
+                });
+            })
+            
+        }
+        
+
+
+    </script>
+</html>

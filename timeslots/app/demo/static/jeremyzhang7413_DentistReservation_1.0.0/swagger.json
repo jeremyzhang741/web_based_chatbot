@@ -1,0 +1,352 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "book an appointment with a dentist.",
+    "version": "1.0.0",
+    "title": "Dentist Reservation"
+  },
+  "basePath": "/jeremyzhang7413/DentistReservation/1.0.0",
+  "paths": {
+    "/timeslots": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "get all available timeslots",
+        "operationId": "getalltimeslots",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful get",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/alltimeslots"
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "Books an appointment",
+        "operationId": "bookTimeslotbyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "new timeslot for client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/alltimeslotsbook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful book",
+            "schema": {
+              "$ref": "#/definitions/alltimeslotsbook"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "cancel an appointment",
+        "operationId": "cancelTimeslotbyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "timeslotId",
+            "in": "header",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "dentistId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "minimum": 0
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
+    },
+    "/timeslots/{dentistId}/reserve": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "get timeslots from a specific dentist",
+        "operationId": "gettimeslotbyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dentistId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 0
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful get",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/timeslot"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "Books an appointment",
+        "operationId": "bookTimebyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "dentistId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "new timeslot for client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/timeslotbook"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful book",
+            "schema": {
+              "$ref": "#/definitions/timeslotbook"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "cancel an appointment",
+        "operationId": "cancelTimebyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "timeslotId",
+            "in": "header",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "dentistId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 0
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "alltimeslots": {
+      "type": "object",
+      "properties": {
+        "dentistId": {
+          "type": "integer"
+        },
+        "timeId": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeslot": {
+          "type": "string"
+        },
+        "reserved": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "alltimeslots"
+      }
+    },
+    "alltimeslotsbook": {
+      "type": "object",
+      "properties": {
+        "dentistId": {
+          "type": "integer"
+        },
+        "timeId": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeslot": {
+          "type": "string"
+        },
+        "reserved": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "xml": {
+        "name": "alltimeslotsbook"
+      }
+    },
+    "timeslot": {
+      "type": "object",
+      "properties": {
+        "timeId": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeslot": {
+          "type": "string"
+        },
+        "reserved": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "timeslot"
+      }
+    },
+    "timeslotbook": {
+      "type": "object",
+      "properties": {
+        "timeId": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "string",
+          "format": "date"
+        },
+        "timeslot": {
+          "type": "string"
+        },
+        "reserved": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "xml": {
+        "name": "timeslot"
+      }
+    },
+    "inline_response_400": {
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

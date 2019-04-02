@@ -1,0 +1,49 @@
+---
+swagger: "2.0"
+info:
+  description: A simple chatbot implement.
+  version: 1.0.0
+  title: ChatBot
+host: virtserver.swaggerhub.com
+basePath: /jeremyzhang7413/chatbot
+schemes:
+- https
+- http
+paths:
+  /ask:
+    post:
+      tags:
+      - ChatBot
+      summary: get input and answer it
+      description: Return some answer for user
+      parameters:
+      - in: body
+        name: body
+        description: something you want to say with bot
+        required: true
+        schema:
+          $ref: '#/definitions/Ask'
+      responses:
+        200:
+          description: OK
+          schema: {}
+        400:
+          description: Invalid input
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+        404:
+          description: NOT FOUND
+definitions:
+  Ask:
+    type: object
+    properties:
+      input:
+        type: string
+        example: hi
+  inline_response_400:
+    properties:
+      message:
+        type: string

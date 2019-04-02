@@ -1,0 +1,17 @@
+hi
+hello
+how are you
+where are you from
+my name is jerry
+i am looking for a dentist
+ok, tell me about jim
+i am looking for available list
+i want to know more information about the dentists
+i want know more about jim
+what about Jane information
+i want know Jim available timetable
+i want to book an appointment with Jim and time id is 10032
+i want to cancel my booking
+i want to cancel my booking id is 10032
+tell me all the available dentist now
+show me the timetable now

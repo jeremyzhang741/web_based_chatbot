@@ -1,0 +1,135 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "A dentist chatbot for clients",
+    "version": "1.0.0",
+    "title": "Dentist ChatBot"
+  },
+  "tags": [
+    {
+      "name": "doctor",
+      "description": "get doctor information"
+    }
+  ],
+  "paths": {
+    "/dentist/available_list": {
+      "get": {
+        "tags": [
+          "doctor"
+        ],
+        "summary": "get available dentist namelist",
+        "operationId": "dentist_namelist",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful get",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/time"
+              }
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    },
+    "/dentist/{Id}/information": {
+      "get": {
+        "tags": [
+          "doctor"
+        ],
+        "summary": "get a dentist detail",
+        "operationId": "getinformationbyId",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "description": "ID of dentist to return",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful get",
+            "schema": {
+              "$ref": "#/definitions/namelist"
+            }
+          },
+          "404": {
+            "description": "NOT FOUND"
+          },
+          "400": {
+            "description": "BAD REQUIRE",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "time": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "available": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "xml": {
+        "name": "timelist"
+      }
+    },
+    "namelist": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "specialization": {
+          "type": "string"
+        },
+        "education": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "namelist"
+      }
+    }
+  },
+  "basePath": "/jeremyzhang7413/dentist_chatbot"
+}

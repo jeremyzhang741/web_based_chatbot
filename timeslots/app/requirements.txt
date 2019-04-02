@@ -1,0 +1,9 @@
+Flask
+Jinja2
+Flask-RESTful
+jsonschema
+six
+swagger_py_codegen
+pickledb
+flask_restplus
+requests
